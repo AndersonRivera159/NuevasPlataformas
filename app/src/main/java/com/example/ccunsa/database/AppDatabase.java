@@ -29,12 +29,45 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     AppDatabase.class, "app_database")
-                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
         }
         return INSTANCE;
+    }
+
+    public void insertInitialData() {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            PinturaDao dao = pinturaDao();
+            dao.deleteAll(); // Opcional: Limpiar la tabla antes de insertar
+            dao.insert(
+                    new Pintura("Mona Lisa I", "Leonardo da Vinci", "Retrato de una mujer", "GALERIA I", "mona_lisa", "mona_lisa_audio")
+            );
+            dao.insert(
+                    new Pintura("Mona Lisa II", "Leonardo da Vinci", "Retrato de una mujer", "GALERIA I", "mona_lisa", "mona_lisa_audio")
+            );
+            dao.insert(
+                    new Pintura("Mona Lisa III", "Leonardo da Vinci", "Retrato de una mujer", "GALERIA I", "mona_lisa", "mona_lisa_audio")
+            );
+            dao.insert(
+                    new Pintura("Mona Lisa IV", "Leonardo da Vinci", "Retrato de una mujer", "GALERIA I", "mona_lisa", "mona_lisa_audio")
+            );
+            dao.insert(
+                    new Pintura("Mona Lisa V", "Leonardo da Vinci", "Retrato de una mujer", "GALERIA I", "mona_lisa", "mona_lisa_audio")
+            );
+            dao.insert(
+                    new Pintura("Mona Lisa VI", "Leonardo da Vinci", "Retrato de una mujer", "GALERIA I", "mona_lisa", "mona_lisa_audio")
+            );
+            dao.insert(
+                    new Pintura("Mona Lisa VI", "Leonardo da Vinci", "Retrato de una mujer", "GALERIA I", "the_scream", "mona_lisa_audio")
+            );
+            dao.insert(
+                    new Pintura("Mona Lisa VI", "Leonardo da Vinci", "Retrato de una mujer", "GALERIA I", "mona_lisa", "mona_lisa_audio")
+            );
+            dao.insert(
+                    new Pintura("Mona Lisa VI", "Leonardo da Vinci", "Retrato de una mujer", "GALERIA II", "mona_lisa", "mona_lisa_audio")
+            );
+        });
     }
 
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
